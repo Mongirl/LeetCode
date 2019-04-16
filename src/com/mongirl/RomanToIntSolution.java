@@ -1,4 +1,8 @@
 package com.mongirl;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 13. 罗马数字转整数
 罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。
@@ -86,6 +90,27 @@ public class RomanToIntSolution {
                 result += 1000;
             }
 
+        }
+        return result;
+    }
+    public int romanToInt2(String s) {
+        int result = 0;
+        //网上思路：从左到右遍历 左边比右边大相加，右边比左边大相减
+        Map<Character,Integer> romanNum = new HashMap<Character,Integer>();
+        romanNum.put('I',1);
+        romanNum.put('V',5);
+        romanNum.put('X',10);
+        romanNum.put('L',50);
+        romanNum.put('C',100);
+        romanNum.put('D',500);
+        romanNum.put('M',1000);
+        char[] charArr = s.toCharArray();
+        for(int i =0; i<charArr.length; i++){
+            if(i < charArr.length-1 && romanNum.get(charArr[i]) < romanNum.get(charArr[i+1])){
+                result -=  romanNum.get(charArr[i]);
+            }else{
+                result +=  romanNum.get(charArr[i]);
+            }
         }
         return result;
     }
