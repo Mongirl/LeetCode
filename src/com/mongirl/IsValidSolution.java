@@ -1,5 +1,6 @@
 package com.mongirl;
 
+import java.util.HashMap;
 import java.util.Stack;
 /*
 20. 有效的括号
@@ -69,6 +70,29 @@ public class IsValidSolution {
             return false;
         }
         return true;
+
+    }
+
+    /**题解思路**/
+    public boolean isValidOnline(String s) {
+        HashMap<Character,Character> mapping =  new HashMap<Character,Character>();
+        mapping.put(')','(');
+        mapping.put('}','{');
+        mapping.put(']','[');
+        Stack<Character> left = new Stack<Character>();
+        for(int i = 0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(mapping.containsKey(c)){
+                char topElement = left.empty() ? '#':left.pop();
+                if(topElement != mapping.get(c)){
+                    return false;
+                }
+            }else{
+                left.push(c);
+            }
+        }
+
+        return left.empty();
 
     }
 }
